@@ -13,8 +13,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getFriends({ commit }, handlesObj) {
-      fetch("http://127.0.0.1:8001/api/friends", {
+    async getFriends({ commit }, handlesObj) {
+      await fetch("http://127.0.0.1:8001/api/friends", {
         method: "POST",
         headers: {
           Accept: "application/json",

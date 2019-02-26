@@ -5,17 +5,20 @@
         <v-layout align-center justify-center row fill-height>
           <div class="home">
             <h3 class="display-2">Unfollow Me</h3>
+            <p>Find out who your "friends" are...</p>
             <form>
               <v-text-field
                 v-model="userHandle"
                 prefix="@"
+                label="Your Handle"
                 clearable
                 autofocus
-                placeholder="yourTwitterHandle"
+                placeholder="JaneDoe"
               ></v-text-field>
               <v-text-field
                 v-model="targetHandle"
                 prefix="@"
+                label="Hated Handle"
                 clearable
                 placeholder="realDonaldTrump"
               ></v-text-field>
@@ -42,15 +45,13 @@ export default {
     user: "user"
   }),
   methods: {
-    getFriends() {
-      this.$store
-        .dispatch("getFriends", {
-          userHandle: this.userHandle,
-          targetHandle: this.targetHandle
-        })
-        .then(() => {
-          this.$router.push("/friends");
-        });
+    async getFriends() {
+      const handles = {
+        userHandle: this.userHandle,
+        targetHandle: this.targetHandle
+      };
+      await this.$store.dispatch("getFriends", handles);
+      this.$router.push("/friends");
     }
   }
 };
@@ -62,7 +63,7 @@ export default {
   border-radius: 15px;
   padding: 20px 40px;
 }
-h3 {
+p {
   margin-bottom: 30px;
 }
 form {
